@@ -1,7 +1,10 @@
 package com.student.StudentMarks.controller;
 
 import com.student.StudentMarks.repository.StudentRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import com.student.StudentMarks.model.Student;
@@ -17,8 +20,9 @@ public class StudentController {
     private StudentRepository studentRepository;
 
     @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return studentRepository.save(student);
+    public ResponseEntity addStudent(@RequestBody  @Valid Student student) {
+        studentRepository.save(student);
+        return ResponseEntity.ok("Student created successfully");
     }
 
     @GetMapping
